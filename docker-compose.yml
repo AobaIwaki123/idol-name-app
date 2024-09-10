@@ -1,0 +1,14 @@
+services:
+  # Next.jsの環境
+  view:
+    container_name: "view"
+    build:
+      context: ./view
+      dockerfile: Dockerfile
+    volumes:
+      - ./view:/view
+      - ./view/node_modules:/view/node_modules
+    ports:
+      - "3031:3031"
+    stdin_open: true
+    tty: true
