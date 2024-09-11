@@ -25,7 +25,7 @@ const ButtonGrid: React.FC<ButtonGridProps> = ({ buttons }) => {
   })).sort((a, b) => (b.clicked ? 1 : 0) - (a.clicked ? 1 : 0));
 
   return (
-    <div className="grid grid-cols-3 gap-4 justify-center">
+    <div className="grid grid-cols-3 gap-4 justify-center p-2">
       {sortedButtons.map(({label, clicked, index}) => (
         <Button
           key={index}
