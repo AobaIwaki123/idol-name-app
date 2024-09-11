@@ -8,10 +8,10 @@ type ButtonGridProps = {
 };
 
 const ButtonGrid: React.FC<ButtonGridProps> = ({ buttons }) => {
-  const [clickedButtons, setClickedButtons] = useState<boolean[]>(new Array(buttons.length).fill(false));
-
+  const [isClickedButtons, setIsClickedButtons] = useState<boolean[]>(new Array(buttons.length).fill(false));
+  
   const handleClick = (index: number) => {
-    setClickedButtons(prev => {
+    setIsClickedButtons(prev => {
       const newState = [...prev];
       newState[index] = !newState[index];
       return newState;
@@ -20,22 +20,42 @@ const ButtonGrid: React.FC<ButtonGridProps> = ({ buttons }) => {
 
   const sortedButtons = buttons.map((label, index) => ({
     label,
-    clicked: clickedButtons[index],
+    clicked: isClickedButtons[index],
     index,
   })).sort((a, b) => (b.clicked ? 1 : 0) - (a.clicked ? 1 : 0));
 
+  const clickedButtons = sortedButtons.filter(button => button.clicked);
+  const unclickedButtons = sortedButtons.filter(button => !button.clicked);
+
   return (
-    <div className="grid grid-cols-3 gap-4 justify-center p-2">
-      {sortedButtons.map(({label, clicked, index}) => (
-        <Button
-          key={index}
-          className="py-2 px-4"
-          variant={clicked ? "outlined" : "contained"}
-          onClick={() => handleClick(index)}
-        >
-          {label}
-        </Button>
-      ))}
+  <div className="flex flex-col gap-4 p-2">
+      <div className="grid grid-cols-3 gap-4 justify-center">
+        {clickedButtons.map(({label, clicked, index}) => (
+          <Button
+            key={index}
+            className="py-2 px-4"
+            variant={clicked ? "outlined" : "contained"}
+            onClick={() => handleClick(index)}
+          >
+            {label}
+          </Button>
+        ))}
+      </div>
+      {clickedButtons.length > 0 && unclickedButtons.length > 0 && (
+        <hr className="border-gray-300 w-full" />
+      )}
+      <div className="grid grid-cols-3 gap-4 justify-center">
+        {unclickedButtons.map(({label, clicked, index}) => (
+          <Button
+            key={index}
+            className="py-2 px-4"
+            variant={clicked ? "outlined" : "contained"}
+            onClick={() => handleClick(index)}
+          >
+            {label}
+          </Button>
+        ))}
+        </div>
     </div>
   );
 };
