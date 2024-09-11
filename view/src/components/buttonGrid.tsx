@@ -33,8 +33,8 @@ const ButtonGrid: React.FC<ButtonGridProps> = ({ buttons }) => {
         {clickedButtons.map(({label, clicked, index}) => (
           <Button
             key={index}
-            className="py-2 px-4"
-            variant={clicked ? "outlined" : "contained"}
+            className="font-semibold border-2	py-2 px-4"
+            variant={clicked ? "contained" : "outlined"}
             onClick={() => handleClick(index)}
           >
             {label}
@@ -48,8 +48,8 @@ const ButtonGrid: React.FC<ButtonGridProps> = ({ buttons }) => {
         {unclickedButtons.map(({label, clicked, index}) => (
           <Button
             key={index}
-            className="py-2 px-4"
-            variant={clicked ? "outlined" : "contained"}
+            className="font-semibold border-2	py-2 px-4"
+            variant={clicked ? "contained" : "outlined"}
             onClick={() => handleClick(index)}
           >
             {label}
