@@ -18,16 +18,22 @@ const ButtonGrid: React.FC<ButtonGridProps> = ({ buttons }) => {
     });
   };
 
+  const sortedButtons = buttons.map((label, index) => ({
+    label,
+    clicked: clickedButtons[index],
+    index,
+  })).sort((a, b) => (b.clicked ? 1 : 0) - (a.clicked ? 1 : 0));
+
   return (
     <div className="grid grid-cols-3 gap-4 justify-center">
-      {buttons.map((buttonLabel, index) => (
+      {sortedButtons.map(({label, clicked, index}) => (
         <Button
           key={index}
           className="py-2 px-4"
-          variant={clickedButtons[index] ? "outlined" : "contained"}
+          variant={clicked ? "outlined" : "contained"}
           onClick={() => handleClick(index)}
         >
-          {buttonLabel}
+          {label}
         </Button>
       ))}
     </div>
